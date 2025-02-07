@@ -3,24 +3,41 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  user-select: none;
+  user-select: none;            /* Disable text selection */
+  -webkit-user-select: none;    /* Safari */
+  -moz-user-select: none;       /* Firefox */
 }
 
-/* Disable text selection and tap highlight */
+/* Disable pointer events on images and headings to prevent clicking */
+.logo-container img,
+.logo-container h1 {
+  pointer-events: none;
+  will-change: opacity, text-shadow, filter;
+}
+
+/* Disable image dragging in WebKit browsers */
+img {
+  -webkit-user-drag: none;
+}
+
+/* Optional: disable selection highlighting */
+::selection {
+  background: transparent;
+}
+
+/* Disable tap highlight on mobile devices */
 body, html {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
   -webkit-tap-highlight-color: transparent;
   touch-action: none;
-  
+}
+
+/* BODY & PAGE SETUP */
+body, html {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Start with a solid black background */
   background: #000;
   overflow: hidden;
   font-family: Arial, sans-serif;
@@ -33,12 +50,15 @@ body, html {
   text-align: center;
   color: #fff;
 }
-
 #logo {
   width: 300px;
   margin-bottom: 20px;
+  /* Force hardware acceleration for smoother animations */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
-
 h1 {
   font-size: 36px;
   font-weight: bold;
@@ -46,7 +66,267 @@ h1 {
   color: #fff;
 }
 
-/* CANVAS CONTAINER */
+/* --- NEON GLOWING EFFECTS --- */
+
+/* Default flicker animations on page load */
+.logo-container h1 {
+  /* Text glows in pastel lavender (a cool purple) */
+  animation: neonFlicker 6s infinite ease-in-out;
+}
+.logo-container img {
+  /* Desktop: Logo glows in pastel cyan using filter animation */
+  animation: neonFlickerLogo 7s infinite ease-in-out;
+  animation-delay: 0.3s;
+}
+
+/* When the .pulsing class is present, use smooth pulsing animations */
+.logo-container.pulsing h1 {
+  animation: neonPulse 3s infinite ease-in-out;
+}
+/* Desktop: Use filter-based pulse */
+.logo-container.pulsing img {
+  animation: neonPulseLogo 6s infinite ease-in-out;
+  animation-delay: 0.3s;
+}
+
+/* When the .no-glow class is present, disable animations */
+.logo-container.no-glow h1,
+.logo-container.no-glow img {
+  animation: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+/* ---------- KEYFRAMES FOR TEXT (PASTEL LAVENDER) ---------- */
+
+/* Neon Flicker Keyframes for the text – subtle variations */
+@keyframes neonFlicker {
+  0% {
+    opacity: 0.55;
+    text-shadow: 0 0 3px #CE93D8, 0 0 6px #BA68C8, 0 0 9px #AB47BC;
+  }
+  5% {
+    opacity: 0.65;
+    text-shadow: 0 0 3.9px #CE93D8, 0 0 7.8px #BA68C8, 0 0 11.7px #AB47BC;
+  }
+  8% {
+    opacity: 0.50;
+    text-shadow: 0 0 2.4px #CE93D8, 0 0 4.8px #BA68C8, 0 0 7.2px #AB47BC;
+  }
+  12% {
+    opacity: 0.60;
+    text-shadow: 0 0 3.3px #CE93D8, 0 0 6.6px #BA68C8, 0 0 9.9px #AB47BC;
+  }
+  25% {
+    opacity: 0.58;
+    text-shadow: 0 0 3px #CE93D8, 0 0 6px #BA68C8, 0 0 9px #AB47BC;
+  }
+  40% {
+    opacity: 0.60;
+    text-shadow: 0 0 3.6px #CE93D8, 0 0 7.2px #BA68C8, 0 0 10.8px #AB47BC;
+  }
+  50% {
+    opacity: 0.55;
+    text-shadow: 0 0 3px #CE93D8, 0 0 6px #BA68C8, 0 0 9px #AB47BC;
+  }
+  62% {
+    opacity: 0.52;
+    text-shadow: 0 0 2.7px #CE93D8, 0 0 5.4px #BA68C8, 0 0 8.1px #AB47BC;
+  }
+  75% {
+    opacity: 0.60;
+    text-shadow: 0 0 3.6px #CE93D8, 0 0 7.2px #BA68C8, 0 0 10.8px #AB47BC;
+  }
+  90% {
+    opacity: 0.57;
+    text-shadow: 0 0 3.3px #CE93D8, 0 0 6.6px #BA68C8, 0 0 9.9px #AB47BC;
+  }
+  100% {
+    opacity: 0.55;
+    text-shadow: 0 0 3px #CE93D8, 0 0 6px #BA68C8, 0 0 9px #AB47BC;
+  }
+}
+
+/* Neon Pulse Keyframes for the text – smooth, subtle pulse */
+@keyframes neonPulse {
+  0% {
+    opacity: 0.8;
+    text-shadow: 0 0 5px #CE93D8, 0 0 10px #BA68C8, 0 0 15px #AB47BC;
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 10px #CE93D8, 0 0 20px #BA68C8, 0 0 30px #AB47BC;
+  }
+  100% {
+    opacity: 0.8;
+    text-shadow: 0 0 5px #CE93D8, 0 0 10px #BA68C8, 0 0 15px #AB47BC;
+  }
+}
+
+/* ---------- KEYFRAMES FOR LOGO (PASTEL CYAN) ---------- */
+
+/* Logo Flicker Keyframes (Pastel Cyan with increased drop shadows) */
+@keyframes neonFlickerLogo {
+  0% {
+    opacity: 0.45;
+    filter: -webkit-drop-shadow(0 0 0.8px #80DEEA)
+            -webkit-drop-shadow(0 0 1.6px #4FC3F7)
+            -webkit-drop-shadow(0 0 2.4px #29B6F6);
+    filter: drop-shadow(0 0 0.8px #80DEEA)
+            drop-shadow(0 0 1.6px #4FC3F7)
+            drop-shadow(0 0 2.4px #29B6F6);
+  }
+  7% {
+    opacity: 0.55;
+    filter: -webkit-drop-shadow(0 0 1.12px #80DEEA)
+            -webkit-drop-shadow(0 0 2.24px #4FC3F7)
+            -webkit-drop-shadow(0 0 3.36px #29B6F6);
+    filter: drop-shadow(0 0 1.12px #80DEEA)
+            drop-shadow(0 0 2.24px #4FC3F7)
+            drop-shadow(0 0 3.36px #29B6F6);
+  }
+  10% {
+    opacity: 0.42;
+    filter: -webkit-drop-shadow(0 0 0.64px #80DEEA)
+            -webkit-drop-shadow(0 0 1.28px #4FC3F7)
+            -webkit-drop-shadow(0 0 1.92px #29B6F6);
+    filter: drop-shadow(0 0 0.64px #80DEEA)
+            drop-shadow(0 0 1.28px #4FC3F7)
+            drop-shadow(0 0 1.92px #29B6F6);
+  }
+  15% {
+    opacity: 0.50;
+    filter: -webkit-drop-shadow(0 0 0.96px #80DEEA)
+            -webkit-drop-shadow(0 0 1.92px #4FC3F7)
+            -webkit-drop-shadow(0 0 2.88px #29B6F6);
+    filter: drop-shadow(0 0 0.96px #80DEEA)
+            drop-shadow(0 0 1.92px #4FC3F7)
+            drop-shadow(0 0 2.88px #29B6F6);
+  }
+  30% {
+    opacity: 0.48;
+    filter: -webkit-drop-shadow(0 0 0.88px #80DEEA)
+            -webkit-drop-shadow(0 0 1.76px #4FC3F7)
+            -webkit-drop-shadow(0 0 2.64px #29B6F6);
+    filter: drop-shadow(0 0 0.88px #80DEEA)
+            drop-shadow(0 0 1.76px #4FC3F7)
+            drop-shadow(0 0 2.64px #29B6F6);
+  }
+  45% {
+    opacity: 0.50;
+    filter: -webkit-drop-shadow(0 0 0.96px #80DEEA)
+            -webkit-drop-shadow(0 0 1.92px #4FC3F7)
+            -webkit-drop-shadow(0 0 2.88px #29B6F6);
+    filter: drop-shadow(0 0 0.96px #80DEEA)
+            drop-shadow(0 0 1.92px #4FC3F7)
+            drop-shadow(0 0 2.88px #29B6F6);
+  }
+  55% {
+    opacity: 0.45;
+    filter: -webkit-drop-shadow(0 0 0.8px #80DEEA)
+            -webkit-drop-shadow(0 0 1.6px #4FC3F7)
+            -webkit-drop-shadow(0 0 2.4px #29B6F6);
+    filter: drop-shadow(0 0 0.8px #80DEEA)
+            drop-shadow(0 0 1.6px #4FC3F7)
+            drop-shadow(0 0 2.4px #29B6F6);
+  }
+  68% {
+    opacity: 0.43;
+    filter: -webkit-drop-shadow(0 0 0.72px #80DEEA)
+            -webkit-drop-shadow(0 0 1.44px #4FC3F7)
+            -webkit-drop-shadow(0 0 2.16px #29B6F6);
+    filter: drop-shadow(0 0 0.72px #80DEEA)
+            drop-shadow(0 0 1.44px #4FC3F7)
+            drop-shadow(0 0 2.16px #29B6F6);
+  }
+  80% {
+    opacity: 0.50;
+    filter: -webkit-drop-shadow(0 0 0.96px #80DEEA)
+            -webkit-drop-shadow(0 0 1.92px #4FC3F7)
+            -webkit-drop-shadow(0 0 2.88px #29B6F6);
+    filter: drop-shadow(0 0 0.96px #80DEEA)
+            drop-shadow(0 0 1.92px #4FC3F7)
+            drop-shadow(0 0 2.88px #29B6F6);
+  }
+  93% {
+    opacity: 0.47;
+    filter: -webkit-drop-shadow(0 0 0.88px #80DEEA)
+            -webkit-drop-shadow(0 0 1.76px #4FC3F7)
+            -webkit-drop-shadow(0 0 2.64px #29B6F6);
+    filter: drop-shadow(0 0 0.88px #80DEEA)
+            drop-shadow(0 0 1.76px #4FC3F7)
+            drop-shadow(0 0 2.64px #29B6F6);
+  }
+  100% {
+    opacity: 0.45;
+    filter: -webkit-drop-shadow(0 0 0.8px #80DEEA)
+            -webkit-drop-shadow(0 0 1.6px #4FC3F7)
+            -webkit-drop-shadow(0 0 2.4px #29B6F6);
+    filter: drop-shadow(0 0 0.8px #80DEEA)
+            drop-shadow(0 0 1.6px #4FC3F7)
+            drop-shadow(0 0 2.4px #29B6F6);
+  }
+}
+
+/* Logo Pulse Keyframes (Pastel Cyan with smoother, more gradual pulse and occasional subtle flicker) */
+@keyframes neonPulseLogo {
+  0% {
+    opacity: 1;
+    filter: -webkit-drop-shadow(0 0 1.2px #80DEEA)
+            -webkit-drop-shadow(0 0 2.4px #4FC3F7)
+            -webkit-drop-shadow(0 0 3.6px #29B6F6);
+    filter: drop-shadow(0 0 1.2px #80DEEA)
+            drop-shadow(0 0 2.4px #4FC3F7)
+            drop-shadow(0 0 3.6px #29B6F6);
+  }
+  25% {
+    opacity: 1;
+    filter: -webkit-drop-shadow(0 0 1.35px #80DEEA)
+            -webkit-drop-shadow(0 0 2.7px #4FC3F7)
+            -webkit-drop-shadow(0 0 4.05px #29B6F6);
+    filter: drop-shadow(0 0 1.35px #80DEEA)
+            drop-shadow(0 0 2.7px #4FC3F7)
+            drop-shadow(0 0 4.05px #29B6F6);
+  }
+  50% {
+    opacity: 1;
+    filter: -webkit-drop-shadow(0 0 1.6px #80DEEA)
+            -webkit-drop-shadow(0 0 3.2px #4FC3F7)
+            -webkit-drop-shadow(0 0 4.8px #29B6F6);
+    filter: drop-shadow(0 0 1.6px #80DEEA)
+            drop-shadow(0 0 3.2px #4FC3F7)
+            drop-shadow(0 0 4.8px #29B6F6);
+  }
+  75% {
+    opacity: 1;
+    filter: -webkit-drop-shadow(0 0 1.35px #80DEEA)
+            -webkit-drop-shadow(0 0 2.7px #4FC3F7)
+            -webkit-drop-shadow(0 0 4.05px #29B6F6);
+    filter: drop-shadow(0 0 1.35px #80DEEA)
+            drop-shadow(0 0 2.7px #4FC3F7)
+            drop-shadow(0 0 4.05px #29B6F6);
+  }
+  90% {
+    opacity: 0.98;
+    filter: -webkit-drop-shadow(0 0 1.3px #80DEEA)
+            -webkit-drop-shadow(0 0 2.6px #4FC3F7)
+            -webkit-drop-shadow(0 0 3.9px #29B6F6);
+    filter: drop-shadow(0 0 1.3px #80DEEA)
+            drop-shadow(0 0 2.6px #4FC3F7)
+            drop-shadow(0 0 3.9px #29B6F6);
+  }
+  100% {
+    opacity: 1;
+    filter: -webkit-drop-shadow(0 0 1.2px #80DEEA)
+            -webkit-drop-shadow(0 0 2.4px #4FC3F7)
+            -webkit-drop-shadow(0 0 3.6px #29B6F6);
+    filter: drop-shadow(0 0 1.2px #80DEEA)
+            drop-shadow(0 0 2.4px #4FC3F7)
+            drop-shadow(0 0 3.6px #29B6F6);
+  }
+}
+
+/* ---------- CANVAS CONTAINER ---------- */
 #canvas-container {
   position: absolute;
   top: 0;
@@ -56,7 +336,7 @@ h1 {
   z-index: 0;
 }
 
-/* RESPONSIVE DESIGN */
+/* ---------- RESPONSIVE DESIGN ---------- */
 @media (max-width: 600px) {
   h1 {
     font-size: 24px;
@@ -68,7 +348,6 @@ h1 {
     padding: 20px;
   }
 }
-
 @media (max-width: 1024px) {
   h1 {
     font-size: 28px;
@@ -77,7 +356,6 @@ h1 {
     width: 250px;
   }
 }
-
 @media (min-width: 1600px) {
   h1 {
     font-size: 48px;
@@ -86,3 +364,4 @@ h1 {
     width: 350px;
   }
 }
+
