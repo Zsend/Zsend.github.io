@@ -10,16 +10,13 @@ document.addEventListener("DOMContentLoaded", function() {
   container.appendChild(canvas);
   const ctx = canvas.getContext("2d");
   
-  // Flag controlling whether the dynamic background is active.
   let dynamicActive = false;
   let mouseX = 0, mouseY = 0;
   
-  // Resize the canvas to fill the viewport.
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     if (!dynamicActive) {
-      // Fill with solid black if dynamic background is off.
       ctx.fillStyle = "#000";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
@@ -27,9 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
   resizeCanvas();
   window.addEventListener("resize", resizeCanvas);
   
-  // Tie-dye background function using the provided coordinates.
   function getTieDyeBackground(x, y) {
-    // Default to canvas center if invalid.
     const cw = canvas.width || 1;
     const ch = canvas.height || 1;
     x = Math.max(0, Math.min(x, cw));
@@ -49,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function() {
     return gradient;
   }
   
-  // Animation loop: if dynamicActive is true, draw the dynamic background; otherwise, keep it black.
   function animate() {
     if (dynamicActive) {
       const bg = getTieDyeBackground(mouseX, mouseY);
@@ -63,9 +57,36 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   animate();
   
-  // Activate dynamic background on touch or mouse events.
-  function activateDynamic(e) {
-    if (e.cancelable) e.preventDefault();
+  // --- GLOW TOGGLING FUNCTIONS ---
+  const logoContainer = document.querySelector('.logo-container');
+  
+  function disableGlow() {
+    if (logoContainer) {
+      logoContainer.classList.remove('pulsing');
+      logoContainer.classList.add('no-glow');
+    }
+  }
+  
+  function enableGlow() {
+    if (logoContainer) {
+      logoContainer.classList.remove('no-glow');
+      logoContainer.classList.add('pulsing');
+      // Optionally, adjust logo image animation delay for a smoother restart:
+      const logoImg = logoContainer.querySelector('img');
+      if (logoImg) {
+        logoImg.style.animationDelay = '0s';
+        setTimeout(function() {
+          logoImg.style.animationDelay = '0.3s';
+        }, 50);
+      }
+    }
+  }
+  
+  // --- DYNAMIC BACKGROUND & GLOW HANDLING ---
+  function handlePointerStart(e) {
+    e.preventDefault();
+    disableGlow();
+    
     let x, y;
     if (e.touches && e.touches.length > 0) {
       x = e.touches[0].clientX;
@@ -81,17 +102,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
   
-  // Deactivate dynamic background on touchend/mouseup.
-  function endDynamic(e) {
+  function handlePointerEnd(e) {
     dynamicActive = false;
+    enableGlow();
   }
   
-  // Attach event listeners to the container.
-  container.addEventListener("touchstart", activateDynamic, { passive: false });
-  container.addEventListener("touchmove", activateDynamic, { passive: false });
-  container.addEventListener("mousemove", activateDynamic);
+  container.addEventListener("touchstart", handlePointerStart, { passive: false });
+  container.addEventListener("touchmove", handlePointerStart, { passive: false });
+  container.addEventListener("mousemove", handlePointerStart);
+  window.addEventListener("touchend", handlePointerEnd, { passive: false });
+  window.addEventListener("mouseup", handlePointerEnd);
   
-  // Attach end events to the window so they fire regardless of where the finger is released.
-  window.addEventListener("touchend", endDynamic, { passive: false });
-  window.addEventListener("mouseup", endDynamic);
+  // --- INITIAL TRANSITION FROM FLICKER TO PULSING ---
+  setTimeout(() => {
+    if (logoContainer && !logoContainer.classList.contains('no-glow')) {
+      logoContainer.classList.add('pulsing');
+    }
+  }, 3000);
 });
+
