@@ -99,70 +99,74 @@ h1 {
   filter: none !important;
 }
 
-/* ---------- KEYFRAMES FOR TEXT (PASTEL LAVENDER) ---------- */
+/* ---------- KEYFRAMES FOR TEXT (PASTEL LAVENDER) ----------
+   The glow values have been reduced even further.
+-------------------------------------------------------------------------- */
 @keyframes neonFlicker {
   0% {
     opacity: 0.55;
-    text-shadow: 0 0 3px #CE93D8, 0 0 6px #BA68C8, 0 0 9px #AB47BC;
+    text-shadow: 0 0 1px #CE93D8, 0 0 2px #BA68C8, 0 0 3px #AB47BC;
   }
   5% {
     opacity: 0.65;
-    text-shadow: 0 0 3.9px #CE93D8, 0 0 7.8px #BA68C8, 0 0 11.7px #AB47BC;
+    text-shadow: 0 0 1.3px #CE93D8, 0 0 2.6px #BA68C8, 0 0 3.9px #AB47BC;
   }
   8% {
     opacity: 0.50;
-    text-shadow: 0 0 2.4px #CE93D8, 0 0 4.8px #BA68C8, 0 0 7.2px #AB47BC;
+    text-shadow: 0 0 0.8px #CE93D8, 0 0 1.6px #BA68C8, 0 0 2.4px #AB47BC;
   }
   12% {
     opacity: 0.60;
-    text-shadow: 0 0 3.3px #CE93D8, 0 0 6.6px #BA68C8, 0 0 9.9px #AB47BC;
+    text-shadow: 0 0 1.1px #CE93D8, 0 0 2.2px #BA68C8, 0 0 3.3px #AB47BC;
   }
   25% {
     opacity: 0.58;
-    text-shadow: 0 0 3px #CE93D8, 0 0 6px #BA68C8, 0 0 9px #AB47BC;
+    text-shadow: 0 0 1px #CE93D8, 0 0 2px #BA68C8, 0 0 3px #AB47BC;
   }
   40% {
     opacity: 0.60;
-    text-shadow: 0 0 3.6px #CE93D8, 0 0 7.2px #BA68C8, 0 0 10.8px #AB47BC;
+    text-shadow: 0 0 1.2px #CE93D8, 0 0 2.4px #BA68C8, 0 0 3.6px #AB47BC;
   }
   50% {
     opacity: 0.55;
-    text-shadow: 0 0 3px #CE93D8, 0 0 6px #BA68C8, 0 0 9px #AB47BC;
+    text-shadow: 0 0 1px #CE93D8, 0 0 2px #BA68C8, 0 0 3px #AB47BC;
   }
   62% {
     opacity: 0.52;
-    text-shadow: 0 0 2.7px #CE93D8, 0 0 5.4px #BA68C8, 0 0 8.1px #AB47BC;
+    text-shadow: 0 0 0.9px #CE93D8, 0 0 1.8px #BA68C8, 0 0 2.7px #AB47BC;
   }
   75% {
     opacity: 0.60;
-    text-shadow: 0 0 3.6px #CE93D8, 0 0 7.2px #BA68C8, 0 0 10.8px #AB47BC;
+    text-shadow: 0 0 1.2px #CE93D8, 0 0 2.4px #BA68C8, 0 0 3.6px #AB47BC;
   }
   90% {
     opacity: 0.57;
-    text-shadow: 0 0 3.3px #CE93D8, 0 0 6.6px #BA68C8, 0 0 9.9px #AB47BC;
+    text-shadow: 0 0 1.1px #CE93D8, 0 0 2.2px #BA68C8, 0 0 3.3px #AB47BC;
   }
   100% {
     opacity: 0.55;
-    text-shadow: 0 0 3px #CE93D8, 0 0 6px #BA68C8, 0 0 9px #AB47BC;
+    text-shadow: 0 0 1px #CE93D8, 0 0 2px #BA68C8, 0 0 3px #AB47BC;
   }
 }
 
 @keyframes neonPulse {
   0% {
     opacity: 0.8;
-    text-shadow: 0 0 5px #CE93D8, 0 0 10px #BA68C8, 0 0 15px #AB47BC;
+    text-shadow: 0 0 1.7px #CE93D8, 0 0 3.4px #BA68C8, 0 0 5px #AB47BC;
   }
   50% {
     opacity: 1;
-    text-shadow: 0 0 10px #CE93D8, 0 0 20px #BA68C8, 0 0 30px #AB47BC;
+    text-shadow: 0 0 3.4px #CE93D8, 0 0 6.8px #BA68C8, 0 0 10px #AB47BC;
   }
   100% {
     opacity: 0.8;
-    text-shadow: 0 0 5px #CE93D8, 0 0 10px #BA68C8, 0 0 15px #AB47BC;
+    text-shadow: 0 0 1.7px #CE93D8, 0 0 3.4px #BA68C8, 0 0 5px #AB47BC;
   }
 }
 
-/* ---------- KEYFRAMES FOR LOGO (PASTEL CYAN) ---------- */
+/* ---------- KEYFRAMES FOR LOGO (PASTEL CYAN) ----------
+   (These remain unchanged)
+-------------------------------------------------------------------------- */
 @keyframes neonFlickerLogo {
   0% {
     opacity: 0.45;
@@ -271,6 +275,51 @@ h1 {
   }
 }
 
+/* ---------- MOBILE-SPECIFIC OVERRIDE FOR TEXT PULSE ----------
+   On devices that lack hover and use coarse pointers (i.e. most phones),
+   override the h1 pulsing animation to use the filter-based version.
+-------------------------------------------------------------------------- */
+@media (hover: none) and (pointer: coarse) {
+  .logo-container.pulsing h1 {
+    animation: neonPulseMobile 3s infinite ease-in-out;
+    /* Remove text-shadow to avoid conflicts */
+    text-shadow: none;
+  }
+}
+
+/* >>> REPLACED neonPulseMobile with an even narrower glow <<<
+   The drop-shadow values have been reduced further.
+-------------------------------------------------------------------------- */
+@keyframes neonPulseMobile {
+  0% {
+    opacity: 0.8;
+    -webkit-filter: drop-shadow(0 0 1px #CE93D8)
+                    drop-shadow(0 0 2px #BA68C8)
+                    drop-shadow(0 0 3px #AB47BC);
+    filter: drop-shadow(0 0 1px #CE93D8)
+            drop-shadow(0 0 2px #BA68C8)
+            drop-shadow(0 0 3px #AB47BC);
+  }
+  50% {
+    opacity: 0.95;
+    -webkit-filter: drop-shadow(0 0 2px #CE93D8)
+                    drop-shadow(0 0 4px #BA68C8)
+                    drop-shadow(0 0 6px #AB47BC);
+    filter: drop-shadow(0 0 2px #CE93D8)
+            drop-shadow(0 0 4px #BA68C8)
+            drop-shadow(0 0 6px #AB47BC);
+  }
+  100% {
+    opacity: 0.8;
+    -webkit-filter: drop-shadow(0 0 1px #CE93D8)
+                    drop-shadow(0 0 2px #BA68C8)
+                    drop-shadow(0 0 3px #AB47BC);
+    filter: drop-shadow(0 0 1px #CE93D8)
+            drop-shadow(0 0 2px #BA68C8)
+            drop-shadow(0 0 3px #AB47BC);
+  }
+}
+
 /* ---------- CANVAS CONTAINER ---------- */
 #canvas-container {
   position: absolute;
@@ -316,54 +365,12 @@ h1 {
   }
 }
 
-/* ---------- MOBILE-SPECIFIC OVERRIDE FOR TEXT PULSE ----------
-   On devices that lack hover and use coarse pointers (i.e. most phones),
-   override the h1 pulsing animation to use the filter-based version.
--------------------------------------------------------------------------- */
-@media (hover: none) and (pointer: coarse) {
-  .logo-container.pulsing h1 {
-    animation: neonPulseMobile 3s infinite ease-in-out;
-    /* Remove text-shadow to avoid conflicts */
-    text-shadow: none;
-  }
-}
-
-/* >>> REPLACED neonPulseMobile with a narrower glow <<< */
-@keyframes neonPulseMobile {
-  0% {
-    opacity: 0.8;
-    -webkit-filter: drop-shadow(0 0 3px #CE93D8)
-                    drop-shadow(0 0 6px #BA68C8)
-                    drop-shadow(0 0 9px #AB47BC);
-    filter: drop-shadow(0 0 3px #CE93D8)
-            drop-shadow(0 0 6px #BA68C8)
-            drop-shadow(0 0 9px #AB47BC);
-  }
-  50% {
-    opacity: 0.95;
-    -webkit-filter: drop-shadow(0 0 6px #CE93D8)
-                    drop-shadow(0 0 12px #BA68C8)
-                    drop-shadow(0 0 18px #AB47BC);
-    filter: drop-shadow(0 0 6px #CE93D8)
-            drop-shadow(0 0 12px #BA68C8)
-            drop-shadow(0 0 18px #AB47BC);
-  }
-  100% {
-    opacity: 0.8;
-    -webkit-filter: drop-shadow(0 0 3px #CE93D8)
-                    drop-shadow(0 0 6px #BA68C8)
-                    drop-shadow(0 0 9px #AB47BC);
-    filter: drop-shadow(0 0 3px #CE93D8)
-            drop-shadow(0 0 6px #BA68C8)
-            drop-shadow(0 0 9px #AB47BC);
-  }
-}
-
 /* ===== NEW RULE TO DISABLE CLICKING & TEXT SELECTION ON THE LOGO/TEXT ===== */
 /* This ensures that clicks on the logo/heading pass through to the dynamic background */
 .logo-container {
   pointer-events: none;
   -webkit-touch-callout: none; /* disables iOS long-press menu */
 }
+
 
 
