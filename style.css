@@ -83,7 +83,7 @@ h1 {
 .logo-container.pulsing h1 {
   animation: neonPulse 3s infinite ease-in-out;
 }
-/* Desktop: Use filter-based pulse */
+/* Desktop: Use filter-based pulse for logo image */
 .logo-container.pulsing img {
   animation: neonPulseLogo 6s infinite ease-in-out;
   animation-delay: 0.3s;
@@ -147,7 +147,7 @@ h1 {
   }
 }
 
-/* Neon Pulse Keyframes for the text – smooth, subtle pulse */
+/* Neon Pulse Keyframes for the text – smooth, subtle pulse (desktop, using text-shadow) */
 @keyframes neonPulse {
   0% {
     opacity: 0.8;
@@ -163,105 +163,93 @@ h1 {
   }
 }
 
+/* ---------- NEW: Mobile-Specific Pulse for Text ---------- */
+/* On mobile devices (no hover & coarse pointer), text-shadow animates in steps.
+   We override it to use filter drop-shadow, which mobile browsers interpolate more smoothly. */
+@keyframes neonPulseMobile {
+  0% {
+    opacity: 0.8;
+    -webkit-filter: drop-shadow(0 0 5px #CE93D8) drop-shadow(0 0 10px #BA68C8) drop-shadow(0 0 15px #AB47BC);
+    filter: drop-shadow(0 0 5px #CE93D8) drop-shadow(0 0 10px #BA68C8) drop-shadow(0 0 15px #AB47BC);
+  }
+  50% {
+    opacity: 1;
+    -webkit-filter: drop-shadow(0 0 10px #CE93D8) drop-shadow(0 0 20px #BA68C8) drop-shadow(0 0 30px #AB47BC);
+    filter: drop-shadow(0 0 10px #CE93D8) drop-shadow(0 0 20px #BA68C8) drop-shadow(0 0 30px #AB47BC);
+  }
+  100% {
+    opacity: 0.8;
+    -webkit-filter: drop-shadow(0 0 5px #CE93D8) drop-shadow(0 0 10px #BA68C8) drop-shadow(0 0 15px #AB47BC);
+    filter: drop-shadow(0 0 5px #CE93D8) drop-shadow(0 0 10px #BA68C8) drop-shadow(0 0 15px #AB47BC);
+  }
+}
+
 /* ---------- KEYFRAMES FOR LOGO (PASTEL CYAN) ---------- */
 
 /* Logo Flicker Keyframes (Pastel Cyan with increased drop shadows) */
 @keyframes neonFlickerLogo {
   0% {
     opacity: 0.45;
-    filter: -webkit-drop-shadow(0 0 0.8px #80DEEA)
-            -webkit-drop-shadow(0 0 1.6px #4FC3F7)
-            -webkit-drop-shadow(0 0 2.4px #29B6F6);
     filter: drop-shadow(0 0 0.8px #80DEEA)
             drop-shadow(0 0 1.6px #4FC3F7)
             drop-shadow(0 0 2.4px #29B6F6);
   }
   7% {
     opacity: 0.55;
-    filter: -webkit-drop-shadow(0 0 1.12px #80DEEA)
-            -webkit-drop-shadow(0 0 2.24px #4FC3F7)
-            -webkit-drop-shadow(0 0 3.36px #29B6F6);
     filter: drop-shadow(0 0 1.12px #80DEEA)
             drop-shadow(0 0 2.24px #4FC3F7)
             drop-shadow(0 0 3.36px #29B6F6);
   }
   10% {
     opacity: 0.42;
-    filter: -webkit-drop-shadow(0 0 0.64px #80DEEA)
-            -webkit-drop-shadow(0 0 1.28px #4FC3F7)
-            -webkit-drop-shadow(0 0 1.92px #29B6F6);
     filter: drop-shadow(0 0 0.64px #80DEEA)
             drop-shadow(0 0 1.28px #4FC3F7)
             drop-shadow(0 0 1.92px #29B6F6);
   }
   15% {
     opacity: 0.50;
-    filter: -webkit-drop-shadow(0 0 0.96px #80DEEA)
-            -webkit-drop-shadow(0 0 1.92px #4FC3F7)
-            -webkit-drop-shadow(0 0 2.88px #29B6F6);
     filter: drop-shadow(0 0 0.96px #80DEEA)
             drop-shadow(0 0 1.92px #4FC3F7)
             drop-shadow(0 0 2.88px #29B6F6);
   }
   30% {
     opacity: 0.48;
-    filter: -webkit-drop-shadow(0 0 0.88px #80DEEA)
-            -webkit-drop-shadow(0 0 1.76px #4FC3F7)
-            -webkit-drop-shadow(0 0 2.64px #29B6F6);
     filter: drop-shadow(0 0 0.88px #80DEEA)
             drop-shadow(0 0 1.76px #4FC3F7)
             drop-shadow(0 0 2.64px #29B6F6);
   }
   45% {
     opacity: 0.50;
-    filter: -webkit-drop-shadow(0 0 0.96px #80DEEA)
-            -webkit-drop-shadow(0 0 1.92px #4FC3F7)
-            -webkit-drop-shadow(0 0 2.88px #29B6F6);
     filter: drop-shadow(0 0 0.96px #80DEEA)
             drop-shadow(0 0 1.92px #4FC3F7)
             drop-shadow(0 0 2.88px #29B6F6);
   }
   55% {
     opacity: 0.45;
-    filter: -webkit-drop-shadow(0 0 0.8px #80DEEA)
-            -webkit-drop-shadow(0 0 1.6px #4FC3F7)
-            -webkit-drop-shadow(0 0 2.4px #29B6F6);
     filter: drop-shadow(0 0 0.8px #80DEEA)
             drop-shadow(0 0 1.6px #4FC3F7)
             drop-shadow(0 0 2.4px #29B6F6);
   }
   68% {
     opacity: 0.43;
-    filter: -webkit-drop-shadow(0 0 0.72px #80DEEA)
-            -webkit-drop-shadow(0 0 1.44px #4FC3F7)
-            -webkit-drop-shadow(0 0 2.16px #29B6F6);
     filter: drop-shadow(0 0 0.72px #80DEEA)
             drop-shadow(0 0 1.44px #4FC3F7)
             drop-shadow(0 0 2.16px #29B6F6);
   }
   80% {
     opacity: 0.50;
-    filter: -webkit-drop-shadow(0 0 0.96px #80DEEA)
-            -webkit-drop-shadow(0 0 1.92px #4FC3F7)
-            -webkit-drop-shadow(0 0 2.88px #29B6F6);
     filter: drop-shadow(0 0 0.96px #80DEEA)
             drop-shadow(0 0 1.92px #4FC3F7)
             drop-shadow(0 0 2.88px #29B6F6);
   }
   93% {
     opacity: 0.47;
-    filter: -webkit-drop-shadow(0 0 0.88px #80DEEA)
-            -webkit-drop-shadow(0 0 1.76px #4FC3F7)
-            -webkit-drop-shadow(0 0 2.64px #29B6F6);
     filter: drop-shadow(0 0 0.88px #80DEEA)
             drop-shadow(0 0 1.76px #4FC3F7)
             drop-shadow(0 0 2.64px #29B6F6);
   }
   100% {
     opacity: 0.45;
-    filter: -webkit-drop-shadow(0 0 0.8px #80DEEA)
-            -webkit-drop-shadow(0 0 1.6px #4FC3F7)
-            -webkit-drop-shadow(0 0 2.4px #29B6F6);
     filter: drop-shadow(0 0 0.8px #80DEEA)
             drop-shadow(0 0 1.6px #4FC3F7)
             drop-shadow(0 0 2.4px #29B6F6);
@@ -272,54 +260,36 @@ h1 {
 @keyframes neonPulseLogo {
   0% {
     opacity: 1;
-    filter: -webkit-drop-shadow(0 0 1.2px #80DEEA)
-            -webkit-drop-shadow(0 0 2.4px #4FC3F7)
-            -webkit-drop-shadow(0 0 3.6px #29B6F6);
     filter: drop-shadow(0 0 1.2px #80DEEA)
             drop-shadow(0 0 2.4px #4FC3F7)
             drop-shadow(0 0 3.6px #29B6F6);
   }
   25% {
     opacity: 1;
-    filter: -webkit-drop-shadow(0 0 1.35px #80DEEA)
-            -webkit-drop-shadow(0 0 2.7px #4FC3F7)
-            -webkit-drop-shadow(0 0 4.05px #29B6F6);
     filter: drop-shadow(0 0 1.35px #80DEEA)
             drop-shadow(0 0 2.7px #4FC3F7)
             drop-shadow(0 0 4.05px #29B6F6);
   }
   50% {
     opacity: 1;
-    filter: -webkit-drop-shadow(0 0 1.6px #80DEEA)
-            -webkit-drop-shadow(0 0 3.2px #4FC3F7)
-            -webkit-drop-shadow(0 0 4.8px #29B6F6);
     filter: drop-shadow(0 0 1.6px #80DEEA)
             drop-shadow(0 0 3.2px #4FC3F7)
             drop-shadow(0 0 4.8px #29B6F6);
   }
   75% {
     opacity: 1;
-    filter: -webkit-drop-shadow(0 0 1.35px #80DEEA)
-            -webkit-drop-shadow(0 0 2.7px #4FC3F7)
-            -webkit-drop-shadow(0 0 4.05px #29B6F6);
     filter: drop-shadow(0 0 1.35px #80DEEA)
             drop-shadow(0 0 2.7px #4FC3F7)
             drop-shadow(0 0 4.05px #29B6F6);
   }
   90% {
     opacity: 0.98;
-    filter: -webkit-drop-shadow(0 0 1.3px #80DEEA)
-            -webkit-drop-shadow(0 0 2.6px #4FC3F7)
-            -webkit-drop-shadow(0 0 3.9px #29B6F6);
     filter: drop-shadow(0 0 1.3px #80DEEA)
             drop-shadow(0 0 2.6px #4FC3F7)
             drop-shadow(0 0 3.9px #29B6F6);
   }
   100% {
     opacity: 1;
-    filter: -webkit-drop-shadow(0 0 1.2px #80DEEA)
-            -webkit-drop-shadow(0 0 2.4px #4FC3F7)
-            -webkit-drop-shadow(0 0 3.6px #29B6F6);
     filter: drop-shadow(0 0 1.2px #80DEEA)
             drop-shadow(0 0 2.4px #4FC3F7)
             drop-shadow(0 0 3.6px #29B6F6);
@@ -347,6 +317,12 @@ h1 {
   .logo-container {
     padding: 20px;
   }
+  .logo-container img,
+  .logo-container h1 {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform, opacity, filter, text-shadow;
+  }
 }
 @media (max-width: 1024px) {
   h1 {
@@ -365,3 +341,14 @@ h1 {
   }
 }
 
+/* ---------- MOBILE-SPECIFIC OVERRIDE FOR TEXT PULSE ----------
+   On devices that lack hover and use coarse pointers (i.e. most phones),
+   override the h1 pulsing animation to use the filter-based version.
+-------------------------------------------------------------------------- */
+@media (hover: none) and (pointer: coarse) {
+  .logo-container.pulsing h1 {
+    animation: neonPulseMobile 3s infinite ease-in-out;
+    /* Remove text-shadow to avoid conflicts */
+    text-shadow: none;
+  }
+}
