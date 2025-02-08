@@ -48,8 +48,9 @@ body, html {
   position: relative;
   z-index: 2;
   text-align: center;
-  color: #fff;
+  color: #B0B0B0; /* Updated to a light grey (#B0B0B0) */
 }
+
 #logo {
   width: 300px;
   margin-bottom: 20px;
@@ -59,11 +60,12 @@ body, html {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+
 h1 {
   font-size: 36px;
   font-weight: bold;
   text-transform: uppercase;
-  color: #fff;
+  color: #B0B0B0; /* Updated to a light grey (#B0B0B0) */
 }
 
 /* --- NEON GLOWING EFFECTS --- */
@@ -356,4 +358,12 @@ h1 {
             drop-shadow(0 0 9px #AB47BC);
   }
 }
+
+/* ===== NEW RULE TO DISABLE CLICKING & TEXT SELECTION ON THE LOGO/TEXT ===== */
+/* This ensures that clicks on the logo/heading pass through to the dynamic background */
+.logo-container {
+  pointer-events: none;
+  -webkit-touch-callout: none; /* disables iOS long-press menu */
+}
+
 
