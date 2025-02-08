@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
   
-  function handlePointerEnd(e) {
+  function handlePointerEnd() {
     dynamicActive = false;
     enableGlow();
   }
@@ -120,3 +120,4 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }, 3000);
 });
+
