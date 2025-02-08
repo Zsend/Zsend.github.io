@@ -98,8 +98,6 @@ h1 {
 }
 
 /* ---------- KEYFRAMES FOR TEXT (PASTEL LAVENDER) ---------- */
-
-/* Neon Flicker Keyframes for the text – subtle variations */
 @keyframes neonFlicker {
   0% {
     opacity: 0.55;
@@ -147,7 +145,6 @@ h1 {
   }
 }
 
-/* Neon Pulse Keyframes for the text – smooth, subtle pulse (desktop, using text-shadow) */
 @keyframes neonPulse {
   0% {
     opacity: 0.8;
@@ -163,30 +160,7 @@ h1 {
   }
 }
 
-/* ---------- NEW: Mobile-Specific Pulse for Text ---------- */
-/* On mobile devices (no hover & coarse pointer), text-shadow animates in steps.
-   We override it to use filter drop-shadow, which mobile browsers interpolate more smoothly. */
-@keyframes neonPulseMobile {
-  0% {
-    opacity: 0.8;
-    -webkit-filter: drop-shadow(0 0 5px #CE93D8) drop-shadow(0 0 10px #BA68C8) drop-shadow(0 0 15px #AB47BC);
-    filter: drop-shadow(0 0 5px #CE93D8) drop-shadow(0 0 10px #BA68C8) drop-shadow(0 0 15px #AB47BC);
-  }
-  50% {
-    opacity: 1;
-    -webkit-filter: drop-shadow(0 0 10px #CE93D8) drop-shadow(0 0 20px #BA68C8) drop-shadow(0 0 30px #AB47BC);
-    filter: drop-shadow(0 0 10px #CE93D8) drop-shadow(0 0 20px #BA68C8) drop-shadow(0 0 30px #AB47BC);
-  }
-  100% {
-    opacity: 0.8;
-    -webkit-filter: drop-shadow(0 0 5px #CE93D8) drop-shadow(0 0 10px #BA68C8) drop-shadow(0 0 15px #AB47BC);
-    filter: drop-shadow(0 0 5px #CE93D8) drop-shadow(0 0 10px #BA68C8) drop-shadow(0 0 15px #AB47BC);
-  }
-}
-
 /* ---------- KEYFRAMES FOR LOGO (PASTEL CYAN) ---------- */
-
-/* Logo Flicker Keyframes (Pastel Cyan with increased drop shadows) */
 @keyframes neonFlickerLogo {
   0% {
     opacity: 0.45;
@@ -256,7 +230,6 @@ h1 {
   }
 }
 
-/* Logo Pulse Keyframes (Pastel Cyan with smoother, more gradual pulse and occasional subtle flicker) */
 @keyframes neonPulseLogo {
   0% {
     opacity: 1;
@@ -352,3 +325,35 @@ h1 {
     text-shadow: none;
   }
 }
+
+/* >>> REPLACED neonPulseMobile with a narrower glow <<< */
+@keyframes neonPulseMobile {
+  0% {
+    opacity: 0.8;
+    -webkit-filter: drop-shadow(0 0 3px #CE93D8)
+                    drop-shadow(0 0 6px #BA68C8)
+                    drop-shadow(0 0 9px #AB47BC);
+    filter: drop-shadow(0 0 3px #CE93D8)
+            drop-shadow(0 0 6px #BA68C8)
+            drop-shadow(0 0 9px #AB47BC);
+  }
+  50% {
+    opacity: 0.95;
+    -webkit-filter: drop-shadow(0 0 6px #CE93D8)
+                    drop-shadow(0 0 12px #BA68C8)
+                    drop-shadow(0 0 18px #AB47BC);
+    filter: drop-shadow(0 0 6px #CE93D8)
+            drop-shadow(0 0 12px #BA68C8)
+            drop-shadow(0 0 18px #AB47BC);
+  }
+  100% {
+    opacity: 0.8;
+    -webkit-filter: drop-shadow(0 0 3px #CE93D8)
+                    drop-shadow(0 0 6px #BA68C8)
+                    drop-shadow(0 0 9px #AB47BC);
+    filter: drop-shadow(0 0 3px #CE93D8)
+            drop-shadow(0 0 6px #BA68C8)
+            drop-shadow(0 0 9px #AB47BC);
+  }
+}
+
